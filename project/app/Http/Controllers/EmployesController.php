@@ -3,28 +3,24 @@
 namespace App\Http\Controllers;
 
 use App\Models\Employes;
+use App\Models\Affecter;
 use Illuminate\Http\Request;
-use App\Http\Controllers\EmployesController;
-
-
 
 class EmployesController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Afficher une liste des ressources.
      *
      * @return \Illuminate\Http\Response
      */
     public function index()
     {
         $employes = Employes::all();
-        return view('employes.index')->with([
-            'employes'=> $employes
-        ]);
+        return view('employes.index', ['employes' => $employes]);
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Montrer le formulaire pour créer une nouvelle ressource.
      *
      * @return \Illuminate\Http\Response
      */
@@ -34,69 +30,121 @@ class EmployesController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Stocker une nouvelle ressource.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
-        $this->validate($request,[
-            'Cin' => 'required',
-            'Nom' =>'required',
-            'Prénom'=>'required',
-            'Département' =>'required',
-            'Date_naissance' =>'required',
-            'Téléphone' =>'required|numeric',
-            'Etablissement' =>'required',
+        $request->validate([
+            'Cin' => 'required|unique:employes,Cin',
+            'Nom' => 'required',
+            'Prénom' => 'required',
+            'Département' => 'required',
+            'Date_naissance' => 'required',
+            'Téléphone' => 'required|numeric',
+            'Etablissement' => 'required',
         ]);
-        employes::create($request->except('_token'));
-        return redirect()->route('employes.index')->with(['success' => 'le stgiaire ajouter avec succés'
-    ]);
+
+        Employes::create($request->all());
+
+        return redirect()->route('employes.index')->with('success', 'Le stagiaire a été ajouté avec succès.');
     }
 
     /**
-     * Display the specified resource.
+     * Afficher une ressource spécifique.
      *
-     * @param  int  $id
+     * @param  string  $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
     {
-        //
+        $employes = Employes::where('Cin', $id)->first();
+        return view('employes.show', ['employes' => $employes]);
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Montrer le formulaire pour éditer une ressource.
      *
-     * @param  int  $id
+     * @param  string  $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
     {
-        //
+        $employes = Employes::where('Cin', $id)->first();
+        return view('employes.edit', ['employes' => $employes]);
     }
 
     /**
-     * Update the specified resource in storage.
+     * Mettre à jour une ressource spécifique.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  string  $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
     {
-        //
+        $employes = Employes::where('Cin', $id)->first();
+
+        $request->validate([
+            'Cin' => 'required|unique:employes,Cin,' . $id,
+            'Nom' => 'required',
+            'Prénom' => 'required',
+            'Département' => 'required',
+            'Date_naissance' => 'required',
+            'Téléphone' => 'required|numeric',
+            'Etablissement' => 'required',
+        ]);
+
+        $employes->update($request->all());
+
+        return redirect()->route('employes.index')->with('success', 'Le stagiaire a été mis à jour avec succès.');
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Supprimer une ressource spécifique.
      *
-     * @param  int  $id
+     * @param  string  $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
-        //
+        $employes = Employes::where('Cin', $id)->first();
+        $employes->delete();
+
+        return redirect()->route('employes.index')->with('success', 'Le stagiaire a été supprimé avec succès.');
+    }
+
+
+    /**
+     * Requête de vacances pour un employé spécifique.
+     *
+     * @param  string  $id
+     * @return \Illuminate\Http\Response
+     */
+    
+    /**
+     * Requête de vacances pour un employé spécifique.
+     *
+     * @param  string  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function vacationRequest($id)
+    {
+        $employes = Employes::where('Cin', $id)->first();
+        return view('employes.vacation-request', ['employes' => $employes]);
+    }
+
+    /**
+     * Demande de certificat pour un employé spécifique.
+     *
+     * @param  string  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function certificateRequest($id)
+    {
+        $employes = Employes::where('Cin', $id)->first();
+        return view('employes.certificate-request', ['employes' => $employes]);
     }
 }

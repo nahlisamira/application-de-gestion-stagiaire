@@ -324,54 +324,39 @@ return [
             'submenu' => [
                 [
                     'text' => 'Liste des Parrain',
-                    'url' => 'admin/employes',
+                    'url' => 'admin/encadrants',
                     'icon' => 'fas fa-fw fa-list',
                 ],
                 [
                     'text' => 'Ajouter Parrain',
-                    'url' => 'admin/employes/create',
+                    'url' => 'admin/encadrants/create',
                     'icon' => 'fas fa-fw fa-user-plus',
                 
                 ],
             ],
         ],
-        [
-            'text' => 'Stage',
-            'icon' => 'fas fa-copy',
-            'submenu' => [
-                [
-                    'text' => 'Liste des Stage',
-                    'url' => 'admin/employes',
-                    'icon' => 'fas fa-fw fa-list',
-                ],
-                [
-                    'text' => 'Ajouter Stage',
-                    'url' => 'admin/employes/create',
-                    'icon' => 'fas fa-plus-circle',
-                ],
-            ],
-            
-        ],
+        
         [
             'text' => 'Absence',
             'icon' => 'fas fa-file-alt',
             'submenu' => [
                 [
                     'text' => 'Liste Absence',
-                    'url' => 'admin/employes',
+                    'url' => 'admin/absences',
                     'icon' => 'fas fa-fw fa-list',
                 ],
                 [
                     'text' => 'Marquer Absence',
-                    'url' => 'admin/employes/create',
+                    'url' => 'admin/absences/create',
                     'icon' => 'fas fa-marker',
                 ],
             ],
             
         ],
+
     ],
 
-        
+    
         
         
 
@@ -410,6 +395,8 @@ return [
     */
 
     'plugins' => [
+            
+
         'Datatables' => [
             'active' => true,
             'files' => [
@@ -461,12 +448,12 @@ return [
             ],
         ],
         'Sweetalert2' => [
-            'active' => false,
+            'active' => true,
             'files' => [
                 [
                     'type' => 'js',
                     'asset' => false,
-                    'location' => '//cdn.jsdelivr.net/npm/sweetalert2@8',
+                    'location' => '//cdn.jsdelivr.net/npm/sweetalert2@11',
                 ],
             ],
         ],

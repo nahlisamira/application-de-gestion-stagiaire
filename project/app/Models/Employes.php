@@ -11,5 +11,10 @@ class Employes extends Model
     use HasFactory;
     protected $fillable = ['Cin','Nom','Prénom','Département','Date_naissance','Téléphone','Etablissement'
 ];
+
+public function affecter()
+    {
+        return $this->hasMany(Affecter::class, 'id');
+    }
 }
 ?>

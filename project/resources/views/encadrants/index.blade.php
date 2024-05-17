@@ -2,65 +2,54 @@
 
 @section('plugins.Datatables', true)
 
-
 @section('content')
 <style>
     .swal2-button {
-    font-size: 10px; /* Ajustez la taille de la police selon vos besoins */
-    padding: 5px 10px; /* Ajustez les dimensions du padding */
-    border-radius: 3px; /* Optionnel: Ajustez le rayon de bordure */
-}
+        font-size: 10px; /* Ajustez la taille de la police selon vos besoins */
+        padding: 5px 10px; /* Ajustez les dimensions du padding */
+        border-radius: 3px; /* Optionnel: Ajustez le rayon de bordure */
+    }
 </style>
 <div class="container">
     <div class="row">
         <div class="col-md-12 mx-auto">
             <div class="card my-5">
                 <div class="card-header bg-blue">
-                    <div class="text-center font-weight-bold ">
-                        <h3> Liste des Stagiaires</h3>
+                    <div class="text-center font-weight-bold">
+                        <h3> Liste des Encadrants</h3>
                     </div>
                 </div>
                 <div class="card-body">
                     <table id="myTable" class="table table-bordered table-striped">
                         <thead>
                             <tr>
-                                <th>id</th>
+                                <th>ID</th>
                                 <th>Cin</th>
                                 <th>Nom</th>
                                 <th>Prénom</th>
-                                <th>Département</th>
-                                <th>Date_naissance</th>
                                 <th>Téléphone</th>
-                                <th>Etablissement</th>
+                                <th>E_mail</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($employes as $key => $employe)
+                            @foreach ($encadrants as $key => $encadrant)
                             <tr>
                                 <td>{{ $key + 1 }}</td>
-                                <td>{{ $employe->Cin }}</td>
-                                <td>{{ $employe->Nom }}</td>
-                                <td>{{ $employe->Prénom }}</td>
-                                <td>{{ $employe->Département }}</td>
-                                <td>{{ $employe->Date_naissance }}</td>
-                                <td>{{ $employe->Téléphone }}</td>
-                                <td>{{ $employe->Etablissement }}</td>
+                                <td>{{ $encadrant->Cin }}</td>
+                                <td>{{ $encadrant->Nom }}</td>
+                                <td>{{ $encadrant->Prénom }}</td>
+                                <td>{{ $encadrant->Téléphone}}</td>
+                                <td>{{ $encadrant->E_mail }}</td>
                                 <td style="width: 150px;">
                                     <div class="d-flex justify-content-center align-items-center">
-                                        <a href="{{ route('affecter.create', $employe->Cin) }}" class="btn btn-sm btn-success mx-1">
-                                            <i class="fas fa-plus"></i> 
-                                        </a>
-                                        <a href="{{ route('employes.show', $employe->Cin) }}" class="btn btn-sm btn-primary mx-1">
-                                            <i class="fas fa-eye"></i>
-                                        </a>
-                                        <a href="{{ route('employes.edit', $employe->Cin) }}" class="btn btn-sm btn-warning mx-1">
+                                        <a href="{{ route('encadrants.edit', $encadrant->id) }}" class="btn btn-sm btn-warning mx-1">
                                             <i class="fas fa-edit"></i>
                                         </a>
-                                        <form id="deleteForm_{{ $employe->Cin }}" action="{{ route('employes.destroy', $employe->Cin) }}" method="POST">
+                                        <form id="deleteForm_{{ $encadrant->id }}" action="{{ route('encadrants.destroy', $encadrant->id) }}" method="POST">
                                             @method('DELETE')
                                             @csrf
-                                            <button type="button" onclick="confirmDelete('{{ $employe->Cin }}')" class="btn btn-sm btn-danger mx-1">
+                                            <button type="button" onclick="confirmDelete('{{ $encadrant->id }}')" class="btn btn-sm btn-danger mx-1">
                                                 <i class="fas fa-trash-alt"></i>
                                             </button>
                                         </form>
@@ -77,7 +66,6 @@
 </div>
 
 @endsection
-
 @section('js')
 <script>
     $(document).ready(function() {
@@ -118,3 +106,4 @@
 </script>
     
 @endsection
+

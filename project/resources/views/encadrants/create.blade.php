@@ -11,11 +11,11 @@
         <div class="card my-5">
             <div class="card-header bg-blue">
                 <div class="text-center font-weight ">
-                    <h3>Ajouter Nouveaux Stagiaires</h3>
+                    <h3>Ajouter Nouveaux Encadrants</h3>
                 </div>
             </div>
             <div class="card-body">
-                <form  action="{{route('employes.store')}}" method="POST" class="mt-3">
+                <form  action="{{route('encadrants.store')}}" method="POST" class="mt-3">
                     @csrf
                     <div class="form-group mb-3">
                         <label for="Cin">Cin:</label>
@@ -33,24 +33,14 @@
                         value="{{old('Prénom')}}">
                     </div>
                     <div class="form-group mb-3">
-                        <label for="Département">Département:</label>
-                        <input type="text" class="form-control" name="Département" placeholder="Département"
-                        value="{{old('Département')}}">
-                    </div>
-                    <div class="form-group mb-3">
-                        <label for="Date_naissance">Date_naissance:</label>
-                        <input type="date" class="form-control" name="Date_naissance" placeholder="Date_naissance"
-                        value="{{old('Date_naissance')}}">
-                    </div>
-                    <div class="form-group mb-3">
                         <label for="Téléphone">Téléphone:</label>
                         <input type="tel" class="form-control" name="Téléphone" placeholder="Téléphone"
                         value="{{old('Téléphone')}}">
                     </div>
                     <div class="form-group mb-3">
-                        <label for="Etablissement">Etablissement:</label>
-                        <input type="text" class="form-control" name="Etablissement" placeholder="Etablissement"
-                        value="{{old('Etablissement')}}">
+                        <label for="E_mail">E_mail:</label>
+                        <input type="email" class="form-control" name="E_mail" placeholder="E_mail"
+                        value="{{old('E_mail')}}">
                     </div>
                     <div class="form-group">
                         <button type="Submit" class="btn btn-primary">
